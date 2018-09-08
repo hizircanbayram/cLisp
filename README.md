@@ -9,4 +9,4 @@ An interpreter for Lisp-family Programming Languages via C Programming Language 
 <br/><br/><br/>
 
 Parser library can be found at https://github.com/orangeduck/mpc .
-Go over the link above, clone it into this repository.
+Go over the link, clone it into this repository.
