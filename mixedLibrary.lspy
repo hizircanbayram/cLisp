@@ -1,0 +1,132 @@
+
+
+(def { and } (\ { op1 op2 } {
+	if (== op1 0)
+		{ 0 }
+	{ 
+		if (== op2 0)
+			{ 0 }
+		{ 1 }
+	}
+}))
+
+
+(def { or } (\ { op1 op2 } {
+	if (== op1 1)
+		{ 1 }
+	{ 
+		if (== op2 1)
+			{ 1 }
+		{ 0 }
+	}
+}))
+
+
+(def { prime } (\ { mod number } {
+	if  (== number mod)
+		{ 1 }
+	{   
+		if (or (== (% number mod) 0) (< number 2))
+		    { 0 }
+	    { 
+			prime (+ 1 mod) number }
+	}
+}))
+
+
+(def { len } (\ { arg } {
+	if (== arg {})
+		{ 0 }
+	{
+		+ 1 (len (tail arg))	
+	}
+}))	
+
+
+(def { isPrime } (prime 2))
+
+
+(def { untail } (\ { arg } {
+	if (or (== 1 (len arg)) (== 0 (len arg)))
+		{ {} }
+	{
+		join (head arg) (untail (tail arg))
+	}
+}))
+
+(def { last } (\ { arg } {
+	if (== arg {})
+		{ {} }
+	{
+		if (== (len arg) 1) 
+			{ arg }
+		{
+			last (tail arg)
+		}
+	}
+}))
+
+
+(def { unique } (\ { arg } { 
+	if (== arg {})
+		{ {} }
+	{
+		if (or (== 1 (in (tail arg) (eval (head arg))))  (backin (tail arg) (eval (head arg))))  {
+			unique (tail arg) }
+		{
+			join (unique (tail arg)) (eval (head arg))
+		}
+	}
+}))
+
+(def { true false } 1 0)
+
+(def { in } (\ { args num } {
+	if (== args {})
+		{ 0 }
+	{
+		if (== (head args) (list num))
+			{ 1 }
+		{
+			in (tail args) num }
+	}
+}))
+
+
+(def { backin } (\ { args num } {
+	if (== args {})
+		{ 0 }
+	{ 
+		if (== (last args) (list num))
+			{ 1 }
+		{
+			backin (untail args) num }
+	}
+}))
+
+
+(def { mode }(\ {list} {
+	if (== list {})
+		{ {} }
+	{
+		(in list 2)
+	} 
+	
+}))
+
+
+
+
+
+
+(len { 1 2 3})
+(list 999)
+(head {49 0 12 912})
+(tail {49 0 12 912})
+print "in cariliyor"
+(in {49 0 12 912} 912)
+(untail { 1 2 3 })
+(last {  })
+(sum {1 2 3 4})
+(isPrime -7)
+(backin {2 4 29 12 2} 28)
